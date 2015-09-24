@@ -10,4 +10,8 @@ You can use the rake task `rails:template` to apply templates to an existing Rai
     bin/rake rails:template LOCATION=~/template.rb
     bin/rake rails:template LOCATION=http://example.com/template.rb
     
-    
+## Example
+
+To skip turbolinks and use postgres database
+
+    rails new my_app_name -d postgresql -T --skip-turbolinks -m rails_template/template.rb
