@@ -22,6 +22,10 @@ gem_group :development do
 end
 
 gem 'optimadmin', git: 'git@github.com:eskimosoup/Optimadmin.git', branch: 'master'
+gem 'friendly_id', '~> 5.1.0'
+gem 'therubyracer', platforms: :ruby
+
+gsub_file 'Gemfile', "gem 'spring'", "# gem 'spring'"
 
 route "root to: 'application#index'"
 
@@ -52,7 +56,7 @@ RUBY
 end
 
 
-environment env: 'development' do <<-RUBY
+application(nil, env: "development") do <<-RUBY
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
   config.action_mailer.delivery_method = :smtp
@@ -66,12 +70,13 @@ environment env: 'development' do <<-RUBY
 
   config.generators do |g|
     g.assets false
+    g.javascripts  false
     g.stylesheets  false
   end
 RUBY
 end
 
-environment env: 'production' do <<-RUBY
+application(nil, env: "production") do <<-RUBY
   config.logger = Logger.new(config.paths['log'].first, 3, 5242880)
 
   Rails.application.routes.default_url_options[:host] = 'www.ludo5.co.uk'
@@ -84,14 +89,17 @@ environment env: 'production' do <<-RUBY
 RUBY
 end
 
+run "bundle install"
+
 after_bundle do
   remove_dir "test"
   rake "optimadmin:install:migrations"
   # Generator hangs if you don't stop spring
-  run "spring stop"
+  # run "spring stop"
   generate "rspec:install"
   generate "optimadmin:site_settings"
   generate "optimadmin:install"
+  generate "friendly_id"
 
   append_to_file 'config/initializers/assets.rb', 'Rails.application.config.assets.precompile += %w( optimadmin/* )'
   environment env: 'development' do <<-RUBY
