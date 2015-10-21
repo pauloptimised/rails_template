@@ -100,6 +100,8 @@ after_bundle do
   generate "rspec:install"
   generate "optimadmin:site_settings"
   generate "optimadmin:install"
+  generate "optimadmin:install"
+  generate "optimadmin:error_messages"
   generate "friendly_id"
 
   append_to_file 'config/initializers/assets.rb', 'Rails.application.config.assets.precompile += %w( optimadmin/* )'
