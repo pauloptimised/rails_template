@@ -31,6 +31,7 @@ gsub_file 'Gemfile', "gem 'spring'", "# gem 'spring'"
 route "root to: 'application#index'"
 
 inject_into_file "app/controllers/application_controller.rb", after: "protect_from_forgery with: :exception" do <<-RUBY
+  \n
   def index
   end
 RUBY
