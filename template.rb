@@ -78,6 +78,10 @@ application(nil, env: "development") do <<-RUBY
 RUBY
 end
 
+application(nil, env: "test") do <<-RUBY
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+end
+
 application(nil, env: "production") do <<-RUBY
   config.logger = Logger.new(config.paths['log'].first, 3, 5242880)
 
