@@ -80,6 +80,7 @@ end
 
 application(nil, env: "test") do <<-RUBY
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+RUBY
 end
 
 application(nil, env: "production") do <<-RUBY
