@@ -10,6 +10,7 @@ gem_group :test do
   gem 'launchy', '~> 2.4.3'
   # gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
+  gem 'simplecov', require: false
 end
 
 gem_group :development do
