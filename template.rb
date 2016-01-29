@@ -89,10 +89,20 @@ application(nil, env: "production") do <<-RUBY
 
   Rails.application.routes.default_url_options[:host] = 'www.ludo5.co.uk'
 
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.sendmail_settings = {
-    location: '/usr/lib/sendmail',
-    arguments: '-i'
+  # config.action_mailer.delivery_method = :sendmail
+  # config.action_mailer.sendmail_settings = {
+  #  location: '/usr/lib/sendmail',
+  #  arguments: '-i'
+  # }
+
+  config.action_mailer.smtp_settings = { enable_starttls_auto: false }
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    address: 'mail.optimised.today',
+    authentication: :plain,
+    user_name: 'noreply@optimised.today',
+    password: 'LudoStudio47#!poip​'
   }
 RUBY
 end
