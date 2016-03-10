@@ -11,6 +11,7 @@ gem_group :test do
   # gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
 
 gem_group :development do
@@ -102,7 +103,7 @@ application(nil, env: "production") do <<-RUBY
     address: 'mail.optimised.today',
     authentication: :plain,
     user_name: 'noreply@optimised.today',
-    password: 'LudoStudio47#!poip​'
+    password: 'LudoStudio47#!poip'
   }
 RUBY
 end
