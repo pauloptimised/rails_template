@@ -1,5 +1,5 @@
 gem_group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'shoulda-matchers', '~> 2.8.0'
 end
@@ -28,11 +28,12 @@ gem 'optimadmin', git: 'git@github.com:eskimosoup/Optimadmin.git', branch: 'mast
 gem 'friendly_id', '~> 5.1.0'
 gem 'therubyracer', platforms: :ruby
 
-gsub_file 'Gemfile', "gem 'spring'", "# gem 'spring'"
+# gsub_file 'Gemfile', "gem 'spring'", "# gem 'spring'"
 
 route "root to: 'application#index'"
 
-inject_into_file "app/controllers/application_controller.rb", after: "protect_from_forgery with: :exception" do <<-RUBY
+inject_into_file 'app/controllers/application_controller.rb', after: 'protect_from_forgery with: :exception' do
+  <<-RUBY
   \n
   def index
   end
@@ -40,8 +41,8 @@ RUBY
 end
 
 # the empty lines are necessary
-inject_into_file "config/database.yml", after: "database: #{ app_name }_test" do <<-RUBY
-
+inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do
+  <<-RUBY
   host: 192.168.0.41
   username: postgres
   password: tmedia
@@ -51,16 +52,20 @@ end
 # the empty lines are necessary
 # http://www.rubydoc.info/github/wycats/thor/master/Thor/Actions#insert_into_file-instance_method
 # :force => true for insert two or more times the same content.
-inject_into_file "config/database.yml", after: "database: #{ app_name }_development", force: true do <<-RUBY
-
+inject_into_file 'config/database.yml', after: "database: #{app_name}_development", force: true do
+  <<-RUBY
   host: 192.168.0.41
   username: postgres
   password: tmedia
 RUBY
 end
 
+application(nil, env: 'development') do
+  <<-RUBY
+  config.logger = ActiveSupport::Logger.new(config.paths['log'].first, 1, 5_242_880)
 
-application(nil, env: "development") do <<-RUBY
+  Rack::MiniProfiler.config.position = 'right' # ALT + P will toggle visibility
+
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   config.web_console.whitelisted_ips = '192.168.0.0/16'
   config.action_mailer.delivery_method = :smtp
@@ -80,13 +85,15 @@ application(nil, env: "development") do <<-RUBY
 RUBY
 end
 
-application(nil, env: "test") do <<-RUBY
+application(nil, env: 'test') do
+  <<-RUBY
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 RUBY
 end
 
-application(nil, env: "production") do <<-RUBY
-  config.logger = Logger.new(config.paths['log'].first, 3, 5242880)
+application(nil, env: 'production') do
+  <<-RUBY
+  config.logger = ActiveSupport::Logger.new(config.paths['log'].first, 5, 26_214_400)
 
   Rails.application.routes.default_url_options[:host] = 'www.ludo5.co.uk'
 
@@ -108,21 +115,22 @@ application(nil, env: "production") do <<-RUBY
 RUBY
 end
 
-run "bundle install"
+run 'bundle install'
 
 after_bundle do
-  remove_dir "test"
-  rake "optimadmin:install:migrations"
+  remove_dir 'test'
+  rake 'optimadmin:install:migrations'
   # Generator hangs if you don't stop spring
-  # run "spring stop"
-  generate "rspec:install"
-  generate "optimadmin:site_settings"
-  generate "optimadmin:install"
-  generate "optimadmin:error_messages"
-  generate "friendly_id"
+  run 'spring stop'
+  generate 'rspec:install'
+  generate 'optimadmin:site_settings'
+  generate 'optimadmin:install'
+  generate 'optimadmin:error_messages'
+  generate 'friendly_id'
 
   append_to_file 'config/initializers/assets.rb', 'Rails.application.config.assets.precompile += %w( optimadmin/* )'
-  environment env: 'development' do <<-RUBY
+  environment env: 'development' do
+    <<-RUBY
     config.after_initialize do
       Bullet.enable = true
       Bullet.bullet_logger = true
@@ -133,12 +141,12 @@ after_bundle do
   RUBY
   end
 
-  rake "db:create"
-  rake "db:create", env: "test"
-  rake "db:migrate"
-  rake "db:migrate", env: "test"
+  rake 'db:create'
+  rake 'db:create', env: 'test'
+  rake 'db:migrate'
+  rake 'db:migrate', env: 'test'
 
   git :init
-  git add: "."
+  git add: '.'
   git commit: "-a -m 'Initial commit'"
 end
