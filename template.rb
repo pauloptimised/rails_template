@@ -1,44 +1,43 @@
 gem_group :development, :test do
-  gem 'rspec-rails', '~> 3.4'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'shoulda-matchers', '~> 2.8.0'
+  gem 'rspec-rails' # , '~> 3.4'
+  gem 'factory_girl_rails' # , '~> 4.5.0'
+  gem 'shoulda-matchers' # , '~> 2.8.0'
 end
 
 gem_group :test do
-  gem 'database_cleaner', '~> 1.5.0'
-  gem 'capybara', '~> 2.5.0'
-  gem 'launchy', '~> 2.4.3'
+  gem 'database_cleaner' # , '~> 1.5.0'
+  gem 'capybara' # , '~> 2.5.0'
+  gem 'launchy' # , '~> 2.4.3'
   # gem 'poltergeist', '~> 1.6.0'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
-  gem 'shoulda-callback-matchers', '~> 1.1.1'
+  gem 'shoulda-callback-matchers' # , '~> 1.1.1'
 end
 
 gem_group :development do
-  gem 'quiet_assets', '~> 1.1.0'
-  gem 'guard-rspec', '~> 4.6.4', require: false
+  gem 'guard-rspec' # , '~> 4.6.4', require: false
   gem 'optimadmin_generators', git: 'git@github.com:eskimosoup/optimadmin_generators.git'
-  gem 'rack-mini-profiler', '~> 0.9.7'
-  gem 'flamegraph', '~> 0.1.0'
-  gem 'stackprof', '~> 0.2.7'
-  gem 'bullet', '~> 4.14.7'
+  gem 'rack-mini-profiler' # , '~> 0.9.7'
+  gem 'flamegraph' # , '~> 0.1.0'
+  gem 'stackprof' # , '~> 0.2.7'
+  gem 'bullet' # , '~> 4.14.7'
 end
 
 gem 'optimadmin', git: 'git@github.com:eskimosoup/Optimadmin.git', branch: 'master'
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id' # , '~> 5.1.0'
 gem 'therubyracer', platforms: :ruby
 
 # gsub_file 'Gemfile', "gem 'spring'", "# gem 'spring'"
 
 route "root to: 'application#index'"
 
-inject_into_file 'app/controllers/application_controller.rb', after: 'protect_from_forgery with: :exception' do
-  <<-RUBY
-  \n
-  def index
-  end
-RUBY
-end
+# inject_into_file 'app/controllers/application_controller.rb', after: 'protect_from_forgery with: :exception' do
+#  <<-RUBY
+#  \n
+#  def index
+#  end
+# RUBY
+# end
 
 # the empty lines are necessary
 inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do
