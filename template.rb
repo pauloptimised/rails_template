@@ -29,7 +29,7 @@ gem 'therubyracer', platforms: :ruby
 
 # gsub_file 'Gemfile', "gem 'spring'", "# gem 'spring'"
 
-route "root to: 'application#index'"
+# route "root to: 'application#index'"
 
 # inject_into_file 'app/controllers/application_controller.rb', after: 'protect_from_forgery with: :exception' do
 #  <<-RUBY
@@ -42,6 +42,7 @@ route "root to: 'application#index'"
 # the empty lines are necessary
 inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do
   <<-RUBY
+  \n
   host: 192.168.0.41
   username: postgres
   password: tmedia
@@ -53,6 +54,7 @@ end
 # :force => true for insert two or more times the same content.
 inject_into_file 'config/database.yml', after: "database: #{app_name}_development", force: true do
   <<-RUBY
+  \n
   host: 192.168.0.41
   username: postgres
   password: tmedia
