@@ -40,9 +40,8 @@ gem 'therubyracer', platforms: :ruby
 # end
 
 # the empty lines are necessary
-inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do
-  <<-RUBY
-  \n
+inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do <<-RUBY
+
   host: 192.168.0.41
   username: postgres
   password: tmedia
@@ -52,9 +51,8 @@ end
 # the empty lines are necessary
 # http://www.rubydoc.info/github/wycats/thor/master/Thor/Actions#insert_into_file-instance_method
 # :force => true for insert two or more times the same content.
-inject_into_file 'config/database.yml', after: "database: #{app_name}_development", force: true do
-  <<-RUBY
-  \n
+inject_into_file 'config/database.yml', after: "database: #{app_name}_development", force: true do <<-RUBY
+
   host: 192.168.0.41
   username: postgres
   password: tmedia
