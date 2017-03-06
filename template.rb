@@ -40,8 +40,8 @@ gem 'therubyracer', platforms: :ruby
 # end
 
 # the empty lines are necessary
-inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do <<-RUBY
-
+inject_into_file 'config/database.yml', after: "database: #{app_name}_test" do
+  <<-RUBY
   host: 192.168.0.41
   username: postgres
   password: tmedia
@@ -51,8 +51,8 @@ end
 # the empty lines are necessary
 # http://www.rubydoc.info/github/wycats/thor/master/Thor/Actions#insert_into_file-instance_method
 # :force => true for insert two or more times the same content.
-inject_into_file 'config/database.yml', after: "database: #{app_name}_development", force: true do <<-RUBY
-
+inject_into_file 'config/database.yml', after: "database: #{app_name}_development", force: true do
+  <<-RUBY
   host: 192.168.0.41
   username: postgres
   password: tmedia
@@ -67,14 +67,6 @@ application(nil, env: 'development') do
 
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
   config.web_console.whitelisted_ips = '192.168.0.0/16'
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'mail.eskimosoup.co.uk',
-    authentication: :plain,
-    user_name: 'tasks@eskimosoup.co.uk',
-    password: 'poipoip',
-    enable_starttls_auto: false
-  }
 
   config.generators do |g|
     g.assets false
@@ -109,7 +101,7 @@ application(nil, env: 'production') do
     address: 'mail.optimised.today',
     authentication: :plain,
     user_name: 'noreply@optimised.today',
-    password: 'LudoStudio47#!poip'
+    password: ENV['NOREPLY_PASSWORD']
   }
 RUBY
 end
