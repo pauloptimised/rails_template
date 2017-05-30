@@ -14,6 +14,11 @@ You can use the rake task `rails:template` to apply templates to an existing Rai
     bin/rake rails:template LOCATION=~/template.rb
     bin/rake rails:template LOCATION=http://example.com/template.rb
 
+-
+
+    bin/rake rails:template LOCATION=https://raw.githubusercontent.com/eskimosoup/rails_template/master/template.rb
+
+
 ## Example
 
 To skip turbolinks and use postgres database
