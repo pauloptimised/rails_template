@@ -26,7 +26,6 @@ after_bundle do
   run 'spring stop'
   generate 'optimadmin:site_settings'
   generate 'optimadmin:install'
-  generate 'optimadmin:error_messages'
 
   append_to_file 'config/initializers/assets.rb', 'Rails.application.config.assets.precompile += %w( optimadmin/* )'
 end
