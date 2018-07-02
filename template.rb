@@ -23,6 +23,9 @@ run 'bundle install'
 after_bundle do
   # Generator hangs if you don't stop spring
   run 'spring stop'
+  # From optimadmin
   generate 'optimadmin:setup'
+  # From optimadmin_generators
+  generate 'optimadmin:install'
   rails_command('db:migrate')
 end
